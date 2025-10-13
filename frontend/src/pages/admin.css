@@ -1,0 +1,19 @@
+.status-container {
+  margin-top: 10px;
+}
+
+.status-label {
+  font-weight: 600;
+  color: #4a90e2;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.status-select { transition: background-color .25s ease; padding:6px 12px; border-radius:6px; border:1px solid #ccc; }
+
+.status-select.pending        { background-color: #d80719; }
+.status-select.confirmed      { background-color: #0751e6; }
+.status-select.shipped        { background-color: #eeb705; }
+.status-select.out-for-delivery { background-color: #0abced; }
+.status-select.delivered      { background-color: #39ee64; }
+
