@@ -23,7 +23,7 @@ function Catalog({ searchQuery }) {
   try {
     const token = localStorage.getItem('token');
     await axios.post(
-      "http://localhost:5000/api/cart",
+      "https://asrar-perfume-2003.onrender.com/api/products",
       { productId: id },
       {
         headers: { Authorization: `Bearer ${token}` },
