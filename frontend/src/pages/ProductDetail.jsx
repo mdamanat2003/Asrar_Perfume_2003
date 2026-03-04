@@ -10,7 +10,7 @@ export default function ProductDetail(){
   const [comment, setComment] = useState('')
 
   useEffect(()=>{
-    fetch(API_BASE + '/products/' + id)
+    fetch(API_BASE + '/api/products/' + id)
       .then(r=>r.json())
       .then(setP)
       .catch(err=>console.error(err))
@@ -22,7 +22,7 @@ export default function ProductDetail(){
     const token = localStorage.getItem('token')
     if(!token){ alert('Please login to add items to cart'); return }
     try {
-      const res = await fetch(API_BASE + '/cart', {
+      const res = await fetch(API_BASE + '/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
         body: JSON.stringify({ productId: p._id })
@@ -42,7 +42,7 @@ export default function ProductDetail(){
   async function addToWishlist(){
     const token = localStorage.getItem('token')
     if(!token){ alert('Login first'); return; }
-    await fetch(API_BASE + '/wishlist/'+id, { method:'POST', headers:{ Authorization:'Bearer '+token } })
+    await fetch(API_BASE + '/api/wishlist/'+id, { method:'POST', headers:{ Authorization:'Bearer '+token } })
     alert('Added to wishlist')
   }
 
@@ -50,8 +50,8 @@ export default function ProductDetail(){
     e.preventDefault()
     const token = localStorage.getItem('token')
     if(!token){ alert('Login first'); return; }
-    const res = await fetch(API_BASE + '/reviews/' + id, { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+token }, body: JSON.stringify({ rating, comment }) })
-    if(res.ok){ alert('Review added'); const updated = await fetch(API_BASE + '/products/' + id).then(r=>r.json()); setP(updated) }
+    const res = await fetch(API_BASE + '/api/reviews/' + id, { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+token }, body: JSON.stringify({ rating, comment }) })
+    if(res.ok){ alert('Review added'); const updated = await fetch(API_BASE + '/api/products/' + id).then(r=>r.json()); setP(updated) }
     else { const data = await res.json(); alert(data.message || 'Error') }
   }
 

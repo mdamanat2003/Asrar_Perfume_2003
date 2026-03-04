@@ -11,7 +11,7 @@ export default function Login(){
   async function submit(e){
     e.preventDefault()
     try {
-      const url = API_BASE + '/auth/' + (isRegister ? 'register' : 'login')
+      const url = API_BASE + '/api/auth/' + (isRegister ? 'register' : 'login')
       const res = await fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(form) })
       const data = await res.json()
       if(res.ok){

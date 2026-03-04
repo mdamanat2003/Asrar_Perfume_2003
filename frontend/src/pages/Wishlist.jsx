@@ -9,13 +9,13 @@ export default function Wishlist(){
   useEffect(()=> {
     const token = localStorage.getItem('token')
     if(!token) return
-    fetch(API_BASE + '/wishlist', { headers:{ Authorization:'Bearer '+token } })
+    fetch(API_BASE + '/api/wishlist', { headers:{ Authorization:'Bearer '+token } })
       .then(r=>r.json()).then(setItems).catch(()=>setItems([]))
   }, [])
 
   async function remove(id){
     const token = localStorage.getItem('token')
-    await fetch(API_BASE + '/wishlist/'+id, { method:'DELETE', headers:{ Authorization:'Bearer '+token } })
+    await fetch(API_BASE + '/api/wishlist/'+id, { method:'DELETE', headers:{ Authorization:'Bearer '+token } })
     setItems(items.filter(i=>i._id !== id))
   }
 

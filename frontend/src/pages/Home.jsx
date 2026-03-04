@@ -18,7 +18,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch(API_BASE + "/products" + (q ? "?q=" + encodeURIComponent(q) : ""))
+    fetch(API_BASE + "/api/products" + (q ? "?q=" + encodeURIComponent(q) : ""))
       .then((r) => r.json())
       .then(setProducts)
       .catch((err) => console.error(err));

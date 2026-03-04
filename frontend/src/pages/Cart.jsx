@@ -19,7 +19,7 @@ export default function Cart() {
         return
       }
       try {
-        const res = await axios.get(`${API_BASE}/cart`, {
+        const res = await axios.get(`${API_BASE}/api/cart`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true
         })
@@ -37,7 +37,7 @@ export default function Cart() {
     const token = localStorage.getItem('token');
     const productId = cart[idx].product;
     try {
-      await axios.delete(`${API_BASE}/cart/${productId}`, {
+      await axios.delete(`${API_BASE}/api/cart/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true
       });
@@ -53,13 +53,13 @@ export default function Cart() {
     const productId = cart[idx].product
     try {
       if(delta > 0){
-        await axios.post(`${API_BASE}/cart`, { productId }, { headers:{ Authorization:`Bearer ${token}` }, withCredentials:true })
+        await axios.post(`${API_BASE}/api/cart`, { productId }, { headers:{ Authorization:`Bearer ${token}` }, withCredentials:true })
         const newCart = [...cart]
         newCart[idx].qty = newCart[idx].qty + 1
         setCart(newCart)
       } else {
         // decrement via backend
-        await axios.post(`${API_BASE}/cart/decrement/${productId}`, {}, { headers:{ Authorization:`Bearer ${token}` }, withCredentials:true })
+        await axios.post(`${API_BASE}/api/cart/decrement/${productId}`, {}, { headers:{ Authorization:`Bearer ${token}` }, withCredentials:true })
         const newCart = [...cart]
         newCart[idx].qty = Math.max(1, newCart[idx].qty - 1)
         // if qty becomes 0 remove item

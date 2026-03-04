@@ -34,7 +34,7 @@ export default function Checkout() {
         return;
       }
       try {
-        const res = await axios.get(`${API_BASE}/cart`, {
+        const res = await axios.get(`${API_BASE}/api/cart`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -130,7 +130,7 @@ export default function Checkout() {
     // 💳 Handle Razorpay payment for online method
     if (paymentMethod === "Online") {
       try {
-        const orderRes = await axios.post(`${API_BASE}/payment/order`, {
+        const orderRes = await axios.post(`${API_BASE}/api/payment/order`, {
           amount: total,
         });
         const { orderId } = orderRes.data;
@@ -143,7 +143,7 @@ export default function Checkout() {
           description: "Order Payment",
           order_id: orderId,
           handler: async function (response) {
-            const verifyRes = await axios.post(`${API_BASE}/payment/verify`, {
+            const verifyRes = await axios.post(`${API_BASE}/api/payment/verify`, {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
@@ -172,7 +172,7 @@ export default function Checkout() {
     }
 
     // 🧾 For COD (or after payment success)
-    const res = await fetch(`${API_BASE}/orders`, {
+    const res = await fetch(`${API_BASE}/api/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

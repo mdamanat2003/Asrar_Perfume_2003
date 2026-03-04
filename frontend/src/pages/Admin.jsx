@@ -14,12 +14,12 @@ export default function Admin() {
     if (!token || !user || !user.isAdmin) return
 
     // Products fetch
-    fetch(API_BASE + '/admin/products', {
+    fetch(API_BASE + '/api/admin/products', {
       headers: { Authorization: 'Bearer ' + token }
     }).then(r => r.json()).then(setProducts).catch(console.error)
 
     // Orders fetch
-    fetch(API_BASE + '/admin/orders', {
+    fetch(API_BASE + '/api/admin/orders', {
       headers: { Authorization: 'Bearer ' + token }
     }).then(r => r.json()).then(setOrders).catch(console.error)
   }, [])
@@ -28,7 +28,7 @@ export default function Admin() {
     const token = localStorage.getItem('token')
     if (!token) return alert('Not authorized')
 
-    const res = await fetch(API_BASE + '/admin/order/' + id + '/status', {
+    const res = await fetch(API_BASE + '/api/admin/order/' + id + '/status', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
       body: JSON.stringify({ status })

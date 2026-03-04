@@ -8,7 +8,7 @@ export default function Orders(){
   useEffect(()=> {
     const token = localStorage.getItem('token')
     if(!token) return
-    fetch(API_BASE + '/orders', { headers:{ Authorization:'Bearer '+token } })
+    fetch(API_BASE + '/api/orders', { headers:{ Authorization:'Bearer '+token } })
       .then(r=>r.json()).then(setOrders).catch(()=>setOrders([]))
   }, [])
 

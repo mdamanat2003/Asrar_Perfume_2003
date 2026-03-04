@@ -19,9 +19,30 @@ require('dotenv').config();
 
 const app = express();
 
+const configuredOrigins = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const defaultOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://asrar-perfume-2003.onrender.com",
+];
+
+const allowedOrigins = configuredOrigins.length > 0 ? configuredOrigins : defaultOrigins;
+
 app.use(cors({
-  origin: "https://frontend-oweyg57zt-md-amanat-ullahs-projects.vercel.app",
-  credentials: true
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
 }));
 
 app.use(express.json());

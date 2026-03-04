@@ -35,7 +35,7 @@ export default function Account() {
     const address = `city: ${city}\ndist: ${dist}\nstate: ${stateName}\nzip: ${zip}\n`;
 
     try {
-      const res = await fetch(`${API_BASE}/auth/address`, {
+      const res = await fetch(`${API_BASE}/api/auth/address`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
