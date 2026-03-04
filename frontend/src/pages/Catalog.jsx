@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../api";
 
 function Catalog({ searchQuery }) {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function Catalog({ searchQuery }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get(`${API_BASE}/api/products`)
       .then((res) => setProducts(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -23,7 +24,7 @@ function Catalog({ searchQuery }) {
   try {
     const token = localStorage.getItem('token');
     await axios.post(
-      "https://asrar-perfume-2003.onrender.com/api/products",
+      `${API_BASE}/api/cart`,
       { productId: id },
       {
         headers: { Authorization: `Bearer ${token}` },

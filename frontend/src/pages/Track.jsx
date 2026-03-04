@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { API_BASE } from '../api'
+import axios from 'axios'
 
 export default function Track() {
   const [id, setId] = useState('')
@@ -9,7 +10,7 @@ export default function Track() {
   try {
     const token = localStorage.getItem("token"); // or from context/state
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/68dcfa82b3b2f60e20ad1ff3`,
+      `${API_BASE}/api/orders/68dcfa82b3b2f60e20ad1ff3`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -27,7 +28,7 @@ export default function Track() {
     if (!id) return alert("Please enter Order ID")
 
     try {
-      const res = await fetch(`${API_BASE}/orders/${id}`)
+      const res = await fetch(`${API_BASE}/api/orders/${id}`)
       const data = await res.json()
       if (res.ok) {
         setInfo(data)
